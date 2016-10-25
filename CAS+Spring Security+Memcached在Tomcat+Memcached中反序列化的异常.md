@@ -1,8 +1,8 @@
-环境：
+###环境：###
     1.应用架构：CAS Client 3.4.1 + Spring Security3.2.5 + Cas Client Memcached support
     2.中间件机构 Tomcat7 + memcached session manager1.8
 
-环境配置：
+###环境配置：###
     在spring security中增加了如下一段配置：
     <bean id="pgtStorage" class="org.jasig.cas.client.proxy.MemcachedBackedProxyGrantingTicketStorageImpl">
 		<constructor-arg name="hostnamesAndPorts">
@@ -13,7 +13,8 @@
 	</bean>
     
 
-出现异常：
+### 出现异常：###
+<pre><code>
 Oct 24, 2016 8:55:44 AM de.javakaffee.web.msm.JavaSerializationTranscoder writeAttributes
 WARNING: Cannot serialize session attribute SPRING_SECURITY_CONTEXT for session 5BA9BFC1B9ACD6E0C57FAE6A5242E9BE-n1
 java.io.NotSerializableException: javax.net.ssl.HttpsURLConnection$DefaultHostnameVerifier
@@ -250,8 +251,8 @@ Caused by: java.io.NotSerializableException: javax.net.ssl.HttpsURLConnection$De
 	at de.javakaffee.web.msm.RequestTrackingHostValve.backupSession(RequestTrackingHostValve.java:230)
 	at de.javakaffee.web.msm.RequestTrackingHostValve.invoke(RequestTrackingHostValve.java:159)
 	... 11 more
+</code></pre>
 
-
-解决方案：
+###解决方案：###
     cas ticket存储改为：
 	<bean id="pgtStorage" class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl"></bean>
